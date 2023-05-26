@@ -36,14 +36,14 @@ const Account = () => {
                 <Navbar current={"Account"} prelogin={false}/>
             </div>
             <div className='rown-span-8 flex'>
-                <div className='mx-40 mt-16 bg-secondary text-white p-6 px-14 rounded-2xl flex flex-col'>
+                <div className='mx-auto mt-16 bg-secondary text-white p-6 px-14 rounded-2xl flex flex-col'>
                     <div className='mx-auto grid grid-cols-2'>
                         <div className='bg-primary w-48 h-16 border-2 mr-4 rounded-lg flex'>
                             <h5 className='m-auto text-white '>Name: </h5>
                         </div>
 
                         <div className='bg-primary w-48 h-16 border-2 ml-4 rounded-lg flex'>
-                            <button className='m-auto py-2 px-6 bg-white hover:bg-white/70 text-primary font-bold'>Add ALLERGY</button>
+                            <button className='m-auto py-2 px-6 bg-white hover:bg-white/70 text-primary font-bold rounded-xl'>Add ALLERGY</button>
                         </div>
                     </div>
 

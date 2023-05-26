@@ -20,37 +20,58 @@ const Register = () => {
     const onSubmit = (data) => {
         console.log(data);
 
-        navigate("/login");
-        
-        // try {
-        //     setError('');
-        //     server.post("login", data).then(ret => {
-        //         console.log(ret);
-        //         setUser(ret.data);
+        // navigate("/login");
 
-        //         if (ret?.data?.isProvider) { 
-        //             if(ret?.data?.first_login) {
-        //                 navigate("/set_password", {});
-        //             } else {
-        //                 navigate("/provider/profile", {}); 
-        //             }
+        const type = role === 'user' ? 0 : 1;
+
+        let body;
+
+        if (role === 'user') {
+            body = {
+                username: data.username,
+                password: data.password,
+                type,
+                allergy: data.allergy
+            }
+        } else {
+            body = {
+                username: data.username,
+                password: data.password,
+                type,
+                pharmacy: data.pharmacy,
+                address: data.address
+            }
+        }
+        
+        try {
+            setError('');
+            // server.post("/register", body).then(ret => {
+            //     console.log(ret);
+            //     setUser(ret.data);
+
+            //     // if (ret?.data?.isProvider) { 
+            //     //     if(ret?.data?.first_login) {
+            //     //         navigate("/set_password", {});
+            //     //     } else {
+            //     //         navigate("/provider/profile", {}); 
+            //     //     }
                     
-        //         } else if (ret?.data?.admin) {
-        //             navigate("/student_list", {})
-        //         } else {
-        //             console.log(ret?.data?.first_login);
-        //             if(ret?.data?.first_login) {
-        //                 navigate("/set_password", {});
-        //             } else {
-        //                 navigate("/student/dashboard", {});
-        //             }
-        //         }
+            //     // } else if (ret?.data?.admin) {
+            //     //     navigate("/student_list", {})
+            //     // } else {
+            //     //     console.log(ret?.data?.first_login);
+            //     //     if(ret?.data?.first_login) {
+            //     //         navigate("/set_password", {});
+            //     //     } else {
+            //     //         navigate("/student/dashboard", {});
+            //     //     }
+            //     // }
                 
-        //     })
-        // } catch (e) {
-        //     setError(e.message);
-        //     console.log("Error: " + e);
-        // }
+            // })
+        } catch (e) {
+            setError(e.message);
+            console.log("Error: " + e);
+        }
     }
 
     console.log(role);
@@ -78,7 +99,7 @@ const Register = () => {
                         <form className='flex flex-col' onSubmit={handleSubmit(onSubmit)}>
                             <div className='mb-4 relative flex items-center'>
                                 <Icon icon="fluent:mail-24-filled" color="#000" height="24" className='absolute ml-2 pb-0.5'/>
-                                <input {...register("email")} type="email" placeholder='Email' className='placeholder-black hover:placeholder-black/80 transition-colors duration-300 text-black border-0 border-b-2 border-black bg-transparent focus:outline-none pl-10 pb-0.5 w-full'>
+                                <input {...register("username")} type="text" placeholder='Username' className='placeholder-black hover:placeholder-black/80 transition-colors duration-300 text-black border-0 border-b-2 border-black bg-transparent focus:outline-none pl-10 pb-0.5 w-full'>
                                 </input>
                             </div>
 
@@ -90,7 +111,7 @@ const Register = () => {
 
                             <div className='mb-4 relative flex items-center'>
                                 <Icon icon="subway:admin" color="#000" height="24" className='absolute ml-2 pb-0.5'/>
-                                <select {...register("gender")} className='placeholder-black hover:placeholder-black/80 transition-colors duration-300 text-black border-0 border-b-2 border-black bg-transparent focus:outline-none pl-10 pb-0.5 w-full' value={role} onChange={e => setRole(e.target.value)}>
+                                <select {...register("type")} className='placeholder-black hover:placeholder-black/80 transition-colors duration-300 text-black border-0 border-b-2 border-black bg-transparent focus:outline-none pl-10 pb-0.5 w-full' value={role} onChange={e => setRole(e.target.value)}>
                                     <option value="user">User</option>
                                     <option value="admin">Admin</option>
                                 </select>
@@ -100,7 +121,7 @@ const Register = () => {
                                 role === "user" ? (
                                     <div className='mb-4 relative flex items-center'>
                                         <Icon icon="mdi:allergy-outline" color="#000" height="24" className='absolute ml-2 pb-0.5'/>
-                                        <select {...register("allergies")} placeholder="Main Allergy" className='placeholder-black hover:placeholder-black/80 transition-colors duration-300 text-black border-0 border-b-2 border-black bg-transparent focus:outline-none pl-10 pb-0.5 w-full'>
+                                        <select {...register("allergy")} placeholder="Main Allergy" className='placeholder-black hover:placeholder-black/80 transition-colors duration-300 text-black border-0 border-b-2 border-black bg-transparent focus:outline-none pl-10 pb-0.5 w-full'>
                                             <option value="none">No allergy</option>
                                             <option value="ibuprofen">Ibuprofen</option>
                                             <option value="amoxicilin">Amoxicilin</option>
@@ -128,7 +149,7 @@ const Register = () => {
                             {/* <button onClick={() => navigate("/reset")} className='text-xs italic mx-auto mt-2 mb-4 text-[#ead7ba] hover:text-[#ead7ba]/80 transition-colors duration-300'>Did you forgot your password?</button> */}
                             <button onClick={() => navigate("/login")} className='text-xs italic mx-auto mb-2 text-primary hover:text-secondary/80 transition-colors duration-300'>Do you already have an account? Login here</button>
 
-                            <button type="submit" className='bg-primary hover:bg-primary/80 transition-colors duration-300 mx-auto mb-4 mt-4 w-28 text-white py-2 px-4 rounded'>Login</button>
+                            <button type="submit" className='bg-primary hover:bg-primary/80 transition-colors duration-300 mx-auto mb-4 mt-4 w-28 text-white py-2 px-4 rounded'>Register</button>
                         </form>
                     </div>
                 </div>
