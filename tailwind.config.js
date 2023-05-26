@@ -1,12 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-      "./src/**/*.{js,jsx,ts,tsx}",
+      "./src/**/*.{js,jsx,ts,tsx}", "./node_modules/tw-elements/dist/js/**/*.js"
     ],
     theme: {
       extend: {
         colors: {
-          primary: '#233c3b',
+          primary: '#67aaf9',
           secondary: '#f4f1de',
           textMain: '#000',
         },
@@ -22,6 +22,6 @@ module.exports = {
         },
       },
     },
-plugins: [],
+plugins: [require("tw-elements/dist/plugin.cjs")],
 }
 
