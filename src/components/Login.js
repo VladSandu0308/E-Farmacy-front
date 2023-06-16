@@ -18,37 +18,29 @@ const Login = () => {
     const onSubmit = (data) => {
         console.log(data);
 
-        navigate("/", {state: {prelogin: false}})
-        
-        // try {
-        //     setError('');
-        //     server.post("login", data).then(ret => {
-        //         console.log(ret);
-        //         setUser(ret.data);
+        //navigate("/", {state: {prelogin: false}})
 
-        //         if (ret?.data?.isProvider) { 
-        //             if(ret?.data?.first_login) {
-        //                 navigate("/set_password", {});
-        //             } else {
-        //                 navigate("/provider/profile", {}); 
-        //             }
-                    
-        //         } else if (ret?.data?.admin) {
-        //             navigate("/student_list", {})
-        //         } else {
-        //             console.log(ret?.data?.first_login);
-        //             if(ret?.data?.first_login) {
-        //                 navigate("/set_password", {});
-        //             } else {
-        //                 navigate("/student/dashboard", {});
-        //             }
-        //         }
+        
+        try {
+            setError('');
+            server.post("/login", data).then(ret => {
+                console.log(ret);
+                setUser(ret.data); 
                 
-        //     })
-        // } catch (e) {
-        //     setError(e.message);
-        //     console.log("Error: " + e);
-        // }
+                navigate("/", {state: {prelogin: false}})
+            }).catch(e => {
+                if (e.response.status === 403) {
+                    setError("Wrong credentials");
+                } else {
+                    setError(e.message)
+                }
+                
+                console.log("Error: " + e.message);
+            })
+        } catch (e) {
+            setError(e.message);
+            console.log("Error: " + e);
+        }
     }
     
 
@@ -74,7 +66,7 @@ const Login = () => {
                         <form className='flex flex-col' onSubmit={handleSubmit(onSubmit)}>
                             <div className='mb-4 relative flex items-center'>
                                 <Icon icon="fluent:mail-24-filled" color="#000" height="24" className='absolute ml-2 pb-0.5'/>
-                                <input {...register("email")} type="email" placeholder='Email' className='placeholder-black hover:placeholder-black/80 transition-colors duration-300 text-black border-0 border-b-2 border-black bg-transparent focus:outline-none pl-10 pb-0.5'>
+                                <input {...register("username")} type="text" placeholder='Username' className='placeholder-black hover:placeholder-black/80 transition-colors duration-300 text-black border-0 border-b-2 border-black bg-transparent focus:outline-none pl-10 pb-0.5'>
                                 </input>
                             </div>
 

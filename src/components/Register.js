@@ -45,29 +45,20 @@ const Register = () => {
         
         try {
             setError('');
-            // server.post("/register", body).then(ret => {
-            //     console.log(ret);
-            //     setUser(ret.data);
+            server.post("/register", body).then(ret => {
+                console.log(ret);
 
-            //     // if (ret?.data?.isProvider) { 
-            //     //     if(ret?.data?.first_login) {
-            //     //         navigate("/set_password", {});
-            //     //     } else {
-            //     //         navigate("/provider/profile", {}); 
-            //     //     }
-                    
-            //     // } else if (ret?.data?.admin) {
-            //     //     navigate("/student_list", {})
-            //     // } else {
-            //     //     console.log(ret?.data?.first_login);
-            //     //     if(ret?.data?.first_login) {
-            //     //         navigate("/set_password", {});
-            //     //     } else {
-            //     //         navigate("/student/dashboard", {});
-            //     //     }
-            //     // }
+                navigate("/login")
                 
-            // })
+            }).catch(e => {
+                if (e.response.status === 400) {
+                    setError("Account already exists");
+                } else {
+                    setError(e.message)
+                }
+                
+                console.log("Error: " + e.message);
+            })
         } catch (e) {
             setError(e.message);
             console.log("Error: " + e);
