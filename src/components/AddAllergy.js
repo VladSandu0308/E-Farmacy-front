@@ -25,6 +25,11 @@ const AddAllergy = () => {
             setError('');
             server.post(`/user/${user.id}/allergies`, data).then(ret => {
                 console.log(ret);
+
+                let newUser = user;
+                newUser.allergies = ret.data;
+
+                setUser(newUser);
                 
                 navigate("/account", {state: {prelogin: false}})
             }).catch(e => {

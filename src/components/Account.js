@@ -54,6 +54,11 @@ const Account = () => {
             server.delete(`/user/${user.id}/allergies`, {data: al}).then(ret => {
                 console.log(ret);
                 setAllergies(ret.data);
+                
+                let newUser = user;
+                newUser.allergies = ret.data;
+
+                setUser(newUser);
 
             }).catch(e => {
                 console.log("Error: " + e.message);
