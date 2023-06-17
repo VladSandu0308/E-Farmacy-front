@@ -1,12 +1,29 @@
 import React from 'react'
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
-
+import useUser from '../hooks/useUser';
 
 const Product = () => {
     const {state} = useLocation();
     console.log(state)
     const navigate = useNavigate();
+    const { user, setUser } = useUser();
+
+    console.log(user.allergies[1]);
+    console.log(state.allergies[1]);
+
+    console.log(user.allergies[1] == state.allergies[1])
+
+    const isInAllergies = (al) => {
+        for (let i = 0; i < user.allergies.length; ++i) {
+            console.log(user.allergies[i].name);
+
+            if (user.allergies[i].name === al.name) { return true; }
+        }
+
+        return false;
+    }
+
 
   return (
     <div className='w-screen h-screen bg-white grid-grid-rows-9 z-0'>
@@ -23,7 +40,7 @@ const Product = () => {
                     {
                         state?.allergies.map(al => (
                             
-                            <div className='w-20 flex bg-[#b45f5f] h-8 rounded-md shadow-lg'>
+                            <div className={`w-20 flex ${isInAllergies(al) ? 'bg-[#b45f5f]' : 'bg-slate-600'} h-8 rounded-md shadow-lg`}>
                                 <p className='text-white text-sm capitalize font-semibold m-auto'>{al.name}</p>
                             </div>
                         )) 
